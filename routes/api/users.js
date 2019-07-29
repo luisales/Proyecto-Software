@@ -25,7 +25,7 @@ module.exports = function(db){
         });
     }
 
-    userModel.AgregarNuevo = (email, password, handler) =>{
+    userModel.agregarNuevo = (email, password, handler) =>{
         var newUser = Object.assign({},{
             email:email,
             password: genPassword(password),
@@ -34,7 +34,7 @@ module.exports = function(db){
             lastPasswords:[],
             roles:["public"]
         });
-        user.coll.insertOne(newUser,(err, result)=>{
+        userColl.insertOne(newUser,(err, result)=>{
             if(err){
                 console.log(err);
                 return handler(err,null);
@@ -48,7 +48,7 @@ module.exports = function(db){
     }
 
     userModel.changePassword = (email, newPassword, handler)=>{
-        var query = {email: email},
+        var query = {email: email};
         var projection = {"password":1, "active":1, "lastPasswords":1};
         userColl.findOne(query, {"projection": projection}, (err,user) =>{
             if(err){
