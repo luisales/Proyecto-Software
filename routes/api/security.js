@@ -1,23 +1,79 @@
 const express = require('express');
 var router = express.Router();
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
+
 function initSecurity (db){
     var userModel = require('./users')(db);
 
-    router.get('/login',(req, res, next)=>{
-      userModel.obtenerPorCorreo(req.body.email, (err, user)=>{
-          if(err){
-              return res.status(400).json(err);
+    passport.use(
+        new LocalStrategy(
+          {
+            usernameField:'email',
+            passwordField:'password'
+          },
+          (email, pswd, next)=>{
+              //--
+            if ((email ||'na') === 'na' || (pswd ||'na') == 'na') {
+              console.log("Valores de correo y contraseña no vienen");
+              return next(null, false, {"Error":"Credenciales Incorrectas"});
+            }
+            userModel.obtenerPorCorreo(email, (err, user) => {
+              if (err) {
+                console.log(err);
+                console.log("Tratando de Ingresar con cuenta inexistente " + email);
+                return next(null, false, { "Error": "Credenciales Incorrectas" });
+              }
+              //Ver si la cuenta está activa
+              if (!user.active) {
+                console.log("Tratando de Ingresar con cuenta suspendida " + email);
+                return next(null, false, { "Error": "Credenciales Incorrectas" });
+              }
+              if (!userModel.comparePasswords(pswd, user.password)) {
+                console.log("Tratando de Ingresar con contraseña incorrecta " + email);
+                return next(null, false, { "Error": "Credenciales Incorrectas" });
+              }
+              delete user.password;
+              delete user.lastPasswords;
+              delete user.active;
+              delete user.dateCreated;
+  
+              return next(null, user, { "Status": "Ok" });
+            });
+              
           }
-          return res.status(200).json(user);   
-        })
+        )
+    );
+
+
+
+    router.get('/login',(req, res, next)=>{
+        passport.authenticate(
+            'local',
+            {session:false},
+            (err, user, info) => {
+              if(user){
+                req.login(user, {session:false}, (err)=>{
+                  if(err){
+                    return res.status(400).json({"Error":"Error al iniciar sesión"});
+                  }
+                  const token = jwt.sign(user, 'polloslocos');
+                  return res.status(200).json({user, token});
+                });
+              }else{
+                return res.status(400).json({info});
+              }
+            }
+        )(req, res);
     });
 
     router.post('/signin',(req, res, next) =>{
 
         var email = req.body.email || 'na';
     var pswd = req.body.password || 'na';
-    
+
     if( email ==='na' || pswd == 'na') {
       return res.status(400).json({"Error":"El correo y la contreseña son necesarios"});
     }
