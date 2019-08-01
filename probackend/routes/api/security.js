@@ -49,7 +49,7 @@ function initSecurity (db){
 
 
 
-    router.get('/login',(req, res, next)=>{
+    router.post('/login',(req, res, next)=>{
         passport.authenticate(
             'local',
             {session:false},

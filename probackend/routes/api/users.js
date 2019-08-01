@@ -94,8 +94,11 @@ module.exports = function(db){
 
         return hashedPassword;
 
-
     }
+
+    userModel.comparePasswords = (rawPassword, dbPassword)=>{
+        return bcrypt.compareSync(rawPassword, dbPassword);
+      }
 
 
     return userModel;
