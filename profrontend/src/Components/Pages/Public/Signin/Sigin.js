@@ -43,7 +43,7 @@ export default class Signin extends Component{
 
   render(){
     return (
-      <section>
+      <section >
         <h1>Crear Nueva Cuenta</h1>
         <section className="main fix640">
          <Campo
