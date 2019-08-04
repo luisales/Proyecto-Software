@@ -1,15 +1,15 @@
 import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosCloseCircleOutline, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { MdRestaurant } from 'react-icons/md';
 
 
 import { paxios } from '../../../../Utilities';
 
-import "./Backlog.css";
+import "./Menu.css";
 
-export default class Backlog extends Component {
+export default class Menu extends Component {
   constructor(){
     super();
     this.state={
@@ -54,16 +54,17 @@ export default class Backlog extends Component {
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
-          <span>{thing.Nombre}</span>
+         <div> 
+           <h1>{thing.Nombre}</h1>
+           </div>
+           <div> 
+           <h2>{thing.descripcion}</h2>
+           </div>
+           <h2>{thing.Precio}</h2>
+           <span><img src={thing.img}/></span>
+        
           <span className="updateThing">
-          <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
-          </span>
-          <span className = "deleteThing">
-          <Link to={`/detailDelete/${thing._id}`}>
-          <IoIosCloseCircleOutline size="2em"/>
-          </Link>
+          
           </span>
         </div>);
     }
@@ -77,7 +78,7 @@ export default class Backlog extends Component {
 
   return (
     <section>
-      <h1><MdRestaurant/>
+     <h1> <MdRestaurant/>
         Combos 
         <span className="addThing">
           <Link to="/detailadd">

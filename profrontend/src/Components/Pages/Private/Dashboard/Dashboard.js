@@ -1,10 +1,10 @@
 import React,  {Component} from 'react';
 import {paxios, getLocalStorage, setLocalStorage} from '../../../../Utilities';
 import { Link } from 'react-router-dom';
-
+import InfiniteScroll from 'react-infinite-scroller';
 import './Dashboard.css';
 import { MdAdd as Plus } from 'react-icons/md';
-
+import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import ThingBox from './ThingBox';
 import DatePanel from './DatePanel';
 
@@ -70,30 +70,57 @@ export default class Dashboard extends Component{
     setLocalStorage('dshboard', JSON.stringify(newState));
     this.setState(newState, () => this.loadData());
   }
-
+  loadMore(page){
+    const items  = this.state.itemsToLoad;
+    const uri = `/api/things/page/${page}/${items}`;
+    paxios.get(uri)
+      .then(
+        ({data})=>{
+          const { things, totalThings} = data;
+          const loadedThings = this.state.things;
+          things.map((e)=>loadedThings.push(e));
+          if(totalThings){
+              this.setState({
+                "things": loadedThings,
+                "hasMore": (page * items < totalThings)
+              });
+          } else {
+            this.setState({
+              "hasMore": false
+            });
+          }
+        }
+      )
+      .catch(
+        (err)=>{
+          console.log(err);
+        }
+      );
+  }
   render(){
     //
+    
+    
     let bigThing = (
       <ThingBox thingType="big">
-        <Link to={`/backlogadd/big/${this.state.dd}`} >
-          <span className="circle"><Plus /></span>
-        </Link>
+     
       </ThingBox>
     );
     let smallThingArr =[];
     smallThingArr.push((
       <ThingBox key={1}>
         <Link to={`/backlogadd/small/${this.state.dd}`} >
-          <span className="circle"><Plus /></span>
+            <span>dsdsds</span>
         </Link>
       </ThingBox>
     ));
     smallThingArr.push((
       <ThingBox key={2}>
         <Link to={`/backlogadd/small/${this.state.dd}`} >
-          <span className="circle"><Plus /></span>
+         
         </Link>
       </ThingBox>
+       //<span className="circle"><Plus /></span> Boton de circulo
     ));
     console.log(this.state.things);
     if (this.state.things.length>0) {
@@ -135,20 +162,51 @@ export default class Dashboard extends Component{
         }
       }
     }
+
+    const items = this.state.things.map(
+      (thing)=>{
+        return (
+          <div className="thingItem"  >
+             <h2>prueba</h2>
+            <span>{thing.descripcion}</span>
+            <span className="updateThing"></span>
+            
+          </div>);
+      }
+      
+    );
+    if(!items.length) items.push(
+      <div className="thingItem" key="pbBackLogAddOne">
+        <span>Nuevo Combo</span>
+        
+      </div>);
     return(
       <section>
         <h1>Menu</h1>
+      
         <section className="main cardHolder fix640">
-          {bigThing}
-          <DatePanel
-            currentDate={this.state.currentDate}
-            dateBeforeHandler={this.dateBeforeHandler}
-            dateAfterHandler={this.dateAfterHandler}
-            resetDate={this.resetDate}
-          />
-          {smallThingArr}
+           
+          
+        {bigThing}
+        <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMore}
+            hasMore={this.state.hasMore}
+            useWindow={false}
+            getScrollParent={()=>this.scrollParentRef}
+            loader={<div key="pbBackLogLoading" className="thingItem center"><IoIosSync/></div>}
+            >
+              {items}
+          </InfiniteScroll>
+         
+          
         </section>
+        
       </section>
     );
+    
   }
 }
+//{bigThing}
+//{items}
+//{smallThingArr}
