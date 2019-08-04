@@ -71,22 +71,13 @@ export default class Menu extends Component {
     }
   );
 
-  if(!items.length) items.push(
-    <div className="thingItem" key="pbBackLogAddOne">
-      <span>Nuevo Combo</span>
-      <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
-    </div>);
+  
 
   return (
     <section>
-     <h1 className="tituolo"> <MdRestaurant/>
+     <h1 className="titulo"> 
         Combos 
-        <span className="addThing">
-          <Link to="/detailadd">
-            <IoMdAddCircle size="1.5em" />
-          </Link>
-        </span>
-      </h1>
+        <MdRestaurant/></h1>
       <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
           <InfiniteScroll
             pageStart={0}
