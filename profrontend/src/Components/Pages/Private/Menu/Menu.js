@@ -54,18 +54,19 @@ export default class Menu extends Component {
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
-         <div> 
-           <h1>{thing.Nombre}</h1>
-           </div>
-           <div> 
+         <div > 
+           <h1 >{thing.Nombre}</h1>
+           
+           
            <h2>{thing.descripcion}</h2>
-           </div>
-           <h2>{thing.Precio}</h2>
+           
+           <h2>L. {thing.Precio}</h2>
            <span><img src={thing.img}/></span>
-        
+         
           <span className="updateThing">
-          
+
           </span>
+          </div>
         </div>);
     }
   );
@@ -78,7 +79,7 @@ export default class Menu extends Component {
 
   return (
     <section>
-     <h1> <MdRestaurant/>
+     <h1 className="tituolo"> <MdRestaurant/>
         Combos 
         <span className="addThing">
           <Link to="/detailadd">
