@@ -7,6 +7,7 @@ function thingsInit(db){
     var  thingsColl = db.collection('Combos');
 
     var thingsStruct = {
+        "Codigo": '',
         "Nombre":'',
         "Precio":'',
         "descripcion": '',

@@ -14,6 +14,7 @@ export default class DetailAdd extends Component {
     super();
     //definición del estado inicial
     this.state = {
+      Codigo: '',
       Nombre:'',
         Precio:'',
       descripcion:'',
@@ -31,8 +32,8 @@ export default class DetailAdd extends Component {
     this.setState({ ...this.state, [name]: value });
   }
   onSaveBtnClick(e) {
-    const { Nombre, Precio, descripcion, img} = this.state;
-    paxios.post('/api/things', { Nombre, Precio, descripcion, img })
+    const { Codigo, Nombre, Precio, descripcion, img} = this.state;
+    paxios.post('/api/things', {Codigo, Nombre, Precio, descripcion, img })
     
       .then(({ data }) => {
         this.props.history.goBack();
@@ -48,6 +49,12 @@ export default class DetailAdd extends Component {
       <section>
         <h1>Crear Nuevo Combo</h1>
         <section className="main fix640">
+        <Campo
+            caption="Codigo"
+            value={this.state.Codigo}
+            name="Codigo"
+            onChange={this.onChangeHandler}
+          />
         <Campo
             caption="Nombre"
             value={this.state.Nombre}
