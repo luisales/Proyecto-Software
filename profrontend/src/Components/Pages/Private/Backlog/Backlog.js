@@ -55,16 +55,18 @@ export default class Backlog extends Component {
       return (
         <div className="thingItem" key={thing._id}>
           <span>{thing.Nombre}</span>
-          <span className="updateThing">
-          <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
-          </span>
+          <div>
           <span className = "deleteThing">
           <Link to={`/detailDelete/${thing._id}`}>
           <IoIosCloseCircleOutline size="2em"/>
           </Link>
           </span>
+          <span className="updateThing">
+          <Link to={`/detailupdate/${thing._id}`}>
+              <IoIosInformationCircleOutline size="2em"/>
+            </Link>
+          </span>
+          </div>
         </div>);
     }
   );

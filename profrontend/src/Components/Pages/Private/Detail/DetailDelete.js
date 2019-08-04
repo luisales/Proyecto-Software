@@ -66,6 +66,7 @@ export default class DetailDelete extends Component {
             value={this.state.Nombre}
             name="Nombre"
             onChange={this.onChangeHandler}
+            
           />
           
           <br></br>
@@ -74,6 +75,7 @@ export default class DetailDelete extends Component {
             value={this.state.Precio}
             name="Precio"
             onChange={this.onChangeHandler}
+            
           />
 
           <br></br>
