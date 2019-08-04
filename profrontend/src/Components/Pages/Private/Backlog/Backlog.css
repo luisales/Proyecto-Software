@@ -23,5 +23,12 @@
   color: #fff;
 }
 .updateThing a {
+  float: right;
   color: #3e549c;
 }
+
+.deleteThing  {
+  float: right;
+  color: #cb3234;
+}
+

@@ -1,6 +1,6 @@
 import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import { IoIosCloseCircleOutline, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { MdRestaurant } from 'react-icons/md';
 
@@ -54,11 +54,16 @@ export default class Backlog extends Component {
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
-          <span>{thing.descripcion}</span>
+          <span>{thing.Nombre}</span>
           <span className="updateThing">
-            <Link to={`/detailupdate/${thing._id}`}>
+          <Link to={`/detailupdate/${thing._id}`}>
               <IoIosInformationCircleOutline size="2em"/>
             </Link>
+          </span>
+          <span className = "deleteThing">
+          <Link to={`/detailDelete/${thing._id}`}>
+          <IoIosCloseCircleOutline size="2em"/>
+          </Link>
           </span>
         </div>);
     }
@@ -72,7 +77,7 @@ export default class Backlog extends Component {
 
   return (
     <section>
-     <h1> <MdRestaurant/>
+      <h1><MdRestaurant/>
         Combos 
         <span className="addThing">
           <Link to="/detailadd">

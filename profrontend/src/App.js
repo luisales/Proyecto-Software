@@ -15,6 +15,7 @@ import Backlog  from './Components/Pages/Private/Backlog/Backlog';
 import BacklogAdd from './Components/Pages/Private/Backlog/BacklogAdd';
 import DetailAdd from './Components/Pages/Private/Detail/DetailAdd';
 import DetailUpdate from './Components/Pages/Private/Detail/DetailUpdate';
+import DetailDelete from './Components/Pages/Private/Detail/DetailDelete';
 
 
 
@@ -72,6 +73,7 @@ class App extends Component {
               <PrivateRoute path="/backlogadd/:type/:dd" auth={this.state.auth} component={BacklogAdd} />
               <PrivateRoute path="/detailadd" auth={this.state.auth} component={DetailAdd} />
               <PrivateRoute path="/detailupdate/:id" auth={this.state.auth} component={DetailUpdate} />
+              <PrivateRoute path="/detaildelete/:id" auth={this.state.auth} component={DetailDelete} />
           </AnimatedSwitch>
           <NavBar auth={this.state.auth} />
         </section>
