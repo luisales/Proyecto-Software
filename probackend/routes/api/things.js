@@ -7,7 +7,7 @@ function thingsInit(db){
     var  thingsColl = db.collection('Combos');
 
     var thingsStruct = {
-        "Codigo": '',
+        
         "Nombre":'',
         "Precio":'',
         "descripcion": '',
@@ -127,7 +127,7 @@ function thingsInit(db){
       // router.delete('/:id/:soft', (req, res, next) => {
       router.delete('/:id', (req, res, next) => {
         //var id = parseInt(req.params.id);
-        var query = {"Codigo": new ObjectID(req.params.id)}
+        var query = {"_id": new ObjectID(req.params.id)}
         thingsColl.removeOne(query, (err, result) => {
           if(err) {
             console.log(err);

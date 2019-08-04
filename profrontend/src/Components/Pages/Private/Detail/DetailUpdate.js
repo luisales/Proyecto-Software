@@ -9,7 +9,7 @@ export default class DetailUpdate extends Component {
     super();
     //definición del estado inicial
     this.state = {
-      Codigo: '',
+     
       Nombre:'',
         Precio:'',
       descripcion:'',
@@ -42,8 +42,8 @@ export default class DetailUpdate extends Component {
     this.setState({ ...this.state, [name]: value });
   }
   onSaveBtnClick(e) {
-    const { Codigo, Nombre, Precio, descripcion, img, _id } = this.state;
-    paxios.put(`/api/things/${_id}`, { Codigo, Nombre, Precio, descripcion, img })
+    const { Nombre, Precio, descripcion, img, _id } = this.state;
+    paxios.put(`/api/things/${_id}`, {  Nombre, Precio, descripcion, img })
       .then(({ data }) => {
         this.props.history.push("/backlog");
       })
@@ -61,12 +61,7 @@ export default class DetailUpdate extends Component {
           Mantenimiento Combos
         </h1>
         <section className="main fix640">
-        <Campo
-            caption="Codigo"
-            value={this.state.Codigo}
-            name="Codigo"
-            onChange={this.onChangeHandler}
-          />
+        
         <Campo
             caption="Nombre"
             value={this.state.Nombre}
