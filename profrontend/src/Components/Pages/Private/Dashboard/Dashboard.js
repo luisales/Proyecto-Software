@@ -137,7 +137,7 @@ export default class Dashboard extends Component{
     }
     return(
       <section>
-        <h1>One Big Thing Dashboard</h1>
+        <h1>Menu</h1>
         <section className="main cardHolder fix640">
           {bigThing}
           <DatePanel

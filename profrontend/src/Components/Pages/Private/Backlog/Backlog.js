@@ -2,6 +2,7 @@ import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import {Link} from 'react-router-dom';
+import { MdRestaurant } from 'react-icons/md';
 
 
 import { paxios } from '../../../../Utilities';
@@ -65,14 +66,14 @@ export default class Backlog extends Component {
 
   if(!items.length) items.push(
     <div className="thingItem" key="pbBackLogAddOne">
-      <span>Nuevo Thing</span>
+      <span>Nuevo Combo</span>
       <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
     </div>);
 
   return (
     <section>
-      <h1>
-        My Things Backlog
+     <h1> <MdRestaurant/>
+        Combos 
         <span className="addThing">
           <Link to="/detailadd">
             <IoMdAddCircle size="1.5em" />

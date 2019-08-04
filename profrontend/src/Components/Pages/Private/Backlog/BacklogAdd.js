@@ -81,14 +81,14 @@ export default class BacklogAdd extends Component {
 
   if(!items.length) items.push(
     <div className="thingItem" key="pbBackLogAddOne">
-      <span>Nuevo Thing</span>
+      <span>Nuevo Combo</span>
       <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
     </div>);
 
   return (
     <section>
       <h1>
-        Add Thing to Backlog
+        Agregar Combo al Menu
       </h1>
       <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
           <InfiniteScroll

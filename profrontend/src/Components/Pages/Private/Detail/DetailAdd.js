@@ -14,7 +14,10 @@ export default class DetailAdd extends Component {
     super();
     //definición del estado inicial
     this.state = {
+      Nombre:'',
+        Precio:'',
       descripcion:'',
+      img: '',
       error: false
     };
     //Para el autobinding
@@ -28,32 +31,56 @@ export default class DetailAdd extends Component {
     this.setState({ ...this.state, [name]: value });
   }
   onSaveBtnClick(e) {
-    const { descripcion } = this.state;
-    paxios.post('/api/things', { descripcion })
+    const { Nombre, Precio, descripcion, img} = this.state;
+    paxios.post('/api/things', { Nombre, Precio, descripcion, img })
+    
       .then(({ data }) => {
         this.props.history.goBack();
       })
       .catch((error) => {
         console.log(error);
-        this.setState({ error: "Error al crear nuevo Thing" });
+        this.setState({ error: "Error al crear nuevo combo" });
       })
   }
 
   render() {
     return (
       <section>
-        <h1>Crear Nuevo Thing</h1>
+        <h1>Crear Nuevo Combo</h1>
         <section className="main fix640">
+        <Campo
+            caption="Nombre"
+            value={this.state.Nombre}
+            name="Nombre"
+            onChange={this.onChangeHandler}
+          />
+          
+          <br></br>
+        <Campo
+            caption="Precio"
+            value={this.state.Precio}
+            name="Precio"
+            onChange={this.onChangeHandler}
+          />
+
+          <br></br>
           <Campo
             caption="Descripción"
             value={this.state.descripcion}
             name="descripcion"
             onChange={this.onChangeHandler}
           />
+          <Campo
+            caption="Imagen"
+            value={this.state.img}
+            name="img"
+            onChange={this.onChangeHandler}
+          />
+          <br></br>
           {(this.state.error && true) ? (<div className="error">{this.state.error}</div>) : null}
           <section className="action">
             <Button
-              caption="Crear Thing"
+              caption="Crear Combo"
               onClick={this.onSaveBtnClick}
               customClass="primary"
             />
