@@ -7,9 +7,9 @@ import { MdRestaurant } from 'react-icons/md';
 
 import { paxios } from '../../../../Utilities';
 
-import "./Backlog.css";
+import "./Menu.css";
 
-export default class Backlog extends Component {
+export default class Menu extends Component {
   constructor(){
     super();
     this.state={
@@ -54,11 +54,17 @@ export default class Backlog extends Component {
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
-          <span>{thing.descripcion}</span>
+         <div> 
+           <h1>{thing.Nombre}</h1>
+           </div>
+           <div> 
+           <h2>{thing.descripcion}</h2>
+           </div>
+           <h2>{thing.Precio}</h2>
+           <span><img src={thing.img}/></span>
+        
           <span className="updateThing">
-            <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
+          
           </span>
         </div>);
     }

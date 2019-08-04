@@ -9,7 +9,8 @@ import NavBar from './Components/Common/NavBar/NavBar';
 import Home from './Components/Pages/Public/Home/Home';
 import Login from './Components/Pages/Public/Login/Login';
 import Sigin from './Components/Pages/Public/Signin/Sigin';
-
+import Menu from  './Components/Pages/Private/Menu/Menu';
+import MenuAdd from  './Components/Pages/Private/Menu/MenuAdd';
 import Dashboard from  './Components/Pages/Private/Dashboard/Dashboard';
 import Backlog  from './Components/Pages/Private/Backlog/Backlog';
 import BacklogAdd from './Components/Pages/Private/Backlog/BacklogAdd';
@@ -68,6 +69,9 @@ class App extends Component {
               <Route path="/login" render={ (props)=>(<Login {...props} auth={this.state.auth} setAuth={this.setAuth} />) } />
               <Route path="/signin"  component={Sigin} />
               <PrivateRoute path="/main" auth={this.state.auth} component={Dashboard} />
+              <PrivateRoute path="/menu" auth={this.state.auth} component={Menu} />
+              <PrivateRoute path="/menuadd/:type/:dd" auth={this.state.auth} component={MenuAdd} />
+              
               <PrivateRoute path="/backlog" auth={this.state.auth} component={Backlog} />
               <PrivateRoute path="/backlogadd/:type/:dd" auth={this.state.auth} component={BacklogAdd} />
               <PrivateRoute path="/detailadd" auth={this.state.auth} component={DetailAdd} />

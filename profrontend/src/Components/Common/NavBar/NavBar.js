@@ -25,6 +25,7 @@ export default ({auth, unSetAuth})=>{
         <NavItem to="/"><IoIosHome/>&nbsp;Home</NavItem>
         <NavItem to="/main"><IoIosToday />&nbsp;Main</NavItem>
         <NavItem to="/backlog"><IoIosList/>&nbsp;BackLog</NavItem>
+        <NavItem to="/menu"><IoIosList/>&nbsp;Menu</NavItem>
       </nav>
     )
   }

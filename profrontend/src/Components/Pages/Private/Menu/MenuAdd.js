@@ -1,16 +1,15 @@
 import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle, IoIosAddCircleOutline } from 'react-icons/io';
 import {Link} from 'react-router-dom';
-import { MdRestaurant } from 'react-icons/md';
 
 
 import { paxios } from '../../../../Utilities';
 
-import "./Backlog.css";
+import "./Menu.css";
 
-export default class Backlog extends Component {
-  constructor(){
+export default class MenuAdd extends Component {
+  constructor(props){
     super();
     this.state={
       things:[],
@@ -18,13 +17,15 @@ export default class Backlog extends Component {
       page:1,
       itemsToLoad:10
     }
-
     this.loadMore = this.loadMore.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-
+  componentDidMount(){
+    console.log(this.props);
+  }
   loadMore(page){
     const items  = this.state.itemsToLoad;
-    const uri = `/api/things/page/${page}/${items}`;
+    const uri = `/api/things/page/${page}/${items}/NA`;
     paxios.get(uri)
       .then(
         ({data})=>{
@@ -49,16 +50,30 @@ export default class Backlog extends Component {
         }
       );
   }
+  handleClick(key){
+    const { dd, type } = this.props.match.params;
+    let body = { dd, type};
+    paxios.put(`/api/things/${key}`, body)
+    .then(
+      ({data})=>{
+        this.props.history.goBack();
+      }
+    )
+    .catch(
+      (err)=>{
+        console.log(err);
+      }
+    );
+  }
+
   render() {
   const items = this.state.things.map(
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
           <span>{thing.descripcion}</span>
-          <span className="updateThing">
-            <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
+          <span className="updateThing" onClick={()=>{this.handleClick(thing._id);}}>
+              <IoIosAddCircleOutline size="2em"/>
           </span>
         </div>);
     }
@@ -72,13 +87,8 @@ export default class Backlog extends Component {
 
   return (
     <section>
-     <h1> <MdRestaurant/>
-        Combos 
-        <span className="addThing">
-          <Link to="/detailadd">
-            <IoMdAddCircle size="1.5em" />
-          </Link>
-        </span>
+      <h1>
+        Agregar Combo al Menu
       </h1>
       <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
           <InfiniteScroll
@@ -92,7 +102,6 @@ export default class Backlog extends Component {
               {items}
           </InfiniteScroll>
       </div>
-      
      </section>
    );
   }
