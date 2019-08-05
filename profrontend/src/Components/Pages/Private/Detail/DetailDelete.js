@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../../../Common/Btns/Buttons';
-import Campo from '../../../Common/Campo/Campo';
+import Campo from '../../../Common/Campo/CampoDelete';
 import { paxios } from '../../../../Utilities';
 
 
@@ -66,7 +66,7 @@ export default class DetailDelete extends Component {
             value={this.state.Nombre}
             name="Nombre"
             onChange={this.onChangeHandler}
-            
+                       
           />
           
           <br></br>
@@ -84,6 +84,7 @@ export default class DetailDelete extends Component {
             value={this.state.descripcion}
             name="descripcion"
             onChange={this.onChangeHandler}
+            
           />
           <Campo
             caption="Imagen"
