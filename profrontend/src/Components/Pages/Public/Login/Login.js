@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { naxios } from '../../../../Utilities';
-
+import './login.css';
 import Button from '../../../Common/Btns/Buttons';
 import Campo from '../../../Common/Campo/Campo';
 /*
@@ -56,8 +56,8 @@ export default class Login extends Component{
       );
     }
     return (
-      <section>
-        <h1>Iniciar Sesión</h1>
+      <section >
+        <h1 className="titulo">Iniciar Sesión</h1>
         <section className="main fix640">
          <Campo
           caption="Correo Electrónico"

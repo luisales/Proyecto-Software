@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Button from '../../../Common/Btns/Buttons';
 import Campo from '../../../Common/Campo/Campo';
 import { naxios } from '../../../../Utilities';
-
+import '../Login/login.css';
 /*
   module.exports = class Login .....
 */
@@ -44,7 +44,7 @@ export default class Signin extends Component{
   render(){
     return (
       <section >
-        <h1>Crear Nueva Cuenta</h1>
+        <h1 className="titulo">Crear Nueva Cuenta</h1>
         <section className="main fix640">
          <Campo
           caption="Correo Electrónico"
