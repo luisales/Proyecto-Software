@@ -32,16 +32,17 @@
   align-self: center;
   width: 100%;
   margin-top: 0;
+  position: static;
 }
 .home img{
  
-  margin: 125px;
+  margin: 135px;
   width: 200px;
   height: 200px;
   line-height: 200px;
   text-align: center;
 }
 .home .half{
+  margin: 125px;
   width:50%;
-  
 }
