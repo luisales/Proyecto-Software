@@ -7,7 +7,8 @@ import { MdAdd as Plus } from 'react-icons/md';
 import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import ThingBox from './ThingBox';
 import DatePanel from './DatePanel';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 function getDDDate(ddDate){
   const year = ddDate.getFullYear(), month = ddDate.getMonth() + 1, date = ddDate.getDate();
   let dmonth = (month < 10) ? '0' + String(month) : String(month);
@@ -16,11 +17,32 @@ function getDDDate(ddDate){
 }
 
 export class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stores: [
+              {latitude: 14.0531769, longitude: -87.2276354}
+           ]
+    }
+  }
+  displayMarkers = () => {
+    return this.state.stores.map((store, index) => {
+      return <Marker key={index} id={index} position={{
+       lat: store.latitude,
+       lng: store.longitude
+     }}
+     onClick={() => console.log("You clicked me!")} />
+    })
+  }
   render() {
     return (
-      <Map google={this.props.google} zoom={14}>
-
+      <div>
+      <div><h1>Localización</h1></div>
+      <Map google={this.props.google} zoom={14}  initialCenter={{ lat: 14.0531769, lng: -87.2276354}}>
+      {this.displayMarkers()}
       </Map>
+      </div>
     );
   }
 }
