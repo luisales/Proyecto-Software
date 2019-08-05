@@ -43,6 +43,15 @@
   text-align: center;
 }
 .home .half{
-  margin: 125px;
+  margin-top: -60px;
+  margin-left: 125px;
+  margin-right: 50px;
   width:50%;
+}
+
+.main{
+  height: calc(100vh - 123px);
+  padding: 0px;
+  overflow: auto;
+  margin-top: -1rem;
 }
