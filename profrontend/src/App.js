@@ -13,6 +13,8 @@ import Menu from  './Components/Pages/Private/Menu/Menu';
 import MenuAdd from  './Components/Pages/Private/Menu/MenuAdd';
 import Dashboard from  './Components/Pages/Private/Dashboard/Dashboard';
 import Backlog  from './Components/Pages/Private/Backlog/Backlog';
+import Carrito  from './Components/Pages/Private/Carrito/Carrito';
+import Ordenes  from './Components/Pages/Private/Ordenes/Ordenes';
 import BacklogAdd from './Components/Pages/Private/Backlog/BacklogAdd';
 import DetailAdd from './Components/Pages/Private/Detail/DetailAdd';
 import DetailUpdate from './Components/Pages/Private/Detail/DetailUpdate';
@@ -72,7 +74,8 @@ class App extends Component {
               <PrivateRoute path="/main" auth={this.state.auth} component={Dashboard} />
               <PrivateRoute path="/menu" auth={this.state.auth} component={Menu} />
               <PrivateRoute path="/menuadd/:type/:dd" auth={this.state.auth} component={MenuAdd} />
-              
+              <PrivateRoute path="/carrito" auth={this.state.auth} component={Carrito} />
+              <PrivateRoute path="/ordenes" auth={this.state.auth} component={Ordenes} />
               <PrivateRoute path="/backlog" auth={this.state.auth} component={Backlog} />
               <PrivateRoute path="/backlogadd/:type/:dd" auth={this.state.auth} component={BacklogAdd} />
               <PrivateRoute path="/detailadd" auth={this.state.auth} component={DetailAdd} />
