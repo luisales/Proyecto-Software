@@ -5,9 +5,9 @@
  */
 
  var mongoClient = require('mongodb').MongoClient;
- var mongoUriPrd="mongodb+srv://vimaruser:sadsadsadsadasdas@cluster0-x1axz.mongodb.net/test?retryWrites=true&w=majority"
- var mongoUriDev = 'mongodb://localhost:27017';
- var mongoUri =(process.env.production) ? mongoUriPrd:mongoUriDev;
+ //var mongoUriPrd="mongodb+srv://vimaruser:sadsadsadsadasdas@cluster0-x1axz.mongodb.net/test?retryWrites=true&w=majority"
+ var mongoUri = 'mongodb://localhost:27017';
+ //var mongoUri =(process.env.production) ? mongoUriPrd:mongoUriDev;
  var mongoDBName = 'vimar';
  var mongoOptions = { useNewUrlParser:true};
 console.log(mongoUri);
