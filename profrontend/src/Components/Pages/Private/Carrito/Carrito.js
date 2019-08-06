@@ -9,78 +9,98 @@ import { paxios } from '../../../../Utilities';
 
 import "./Carrito.css";
 
-const express = require('express');
-var router = express.Router();
-var ObjectID = require('mongodb').ObjectID;
+export default class Carrito extends Component {
+  constructor(){
+    super();
+    this.state={
+      things:[],
+      hasMore:true,
+      page:1,
+      itemsToLoad:10
+    }
 
-function ProductsInit(db) {
+    this.loadMore = this.loadMore.bind(this);
+  }
 
-
-    var ProductsColl = db.collection('car');
-
-    var ProductsCollection = [];
-
-    var ProductsStruct = {
-        "codProd": '',
-        "nombre_Product":'',
-        "by": ''
-    };
-
-
-
-    router.get('/', (req, res, next) => {
-        var { _id} = req.user;
-        var query = {"by": new ObjectID(_id)}
-        ProductsColl.aggregate(
-            [
-                 {$match: query},
-                 {$group: {_id: "$codProd", total: { $sum:1}, nombre_Product:{"$first":"$nombre_Product"},codProd:{"$first":"$codProd"}} }
-            ]
-       ).toArray((err, things) => {
-         console.log(things);
-            if (err) return res.status(200).json([]);
-            return res.status(200).json(things);
-        });
-    });
-
-    router.post('/', (req, res, next) => {
-        var { _id,name} = req.user;
-        var newElement = Object.assign({},
-            ProductsStruct,
-            {
-                "codProd":  new ObjectID(req.body.codProd),
-                "nombre_Product":req.body.nombre_Product,
-                "by": new ObjectID(_id),
-                "name":name,
-                "proveedor":new ObjectID(req.body.proveedor),
-            }
-
-        );
-        ProductsColl.insertOne(newElement, {}, (err, result) => {
-            if (err) {
-                console.log(err);
-                return res.status(404).json({ "error": "No se pudo Insertar One Thing" });
-            }
-            return res.status(200).json({ "n": result.insertedCount, "obj": result.ops[0] });
-        });
-    });
-
-    router.delete('/:id', (req, res, next) => {
-        var { _id} = req.user;
-        var query = {"codProd":new ObjectID(req.params.id),"by": new ObjectID(_id)}
-        ProductsColl.remove(query, (err, result) => {
-          if(err) {
-            console.log(err);
-            return res.status(400).json({"error":"Error al eliminar documento"});
+  loadMore(page){
+    const items  = this.state.itemsToLoad;
+    const uri = `/api/things/page/${page}/${items}`;
+    paxios.get(uri)
+      .then(
+        ({data})=>{
+          const { things, totalThings} = data;
+          const loadedThings = this.state.things;
+          things.map((e)=>loadedThings.push(e));
+          if(totalThings){
+              this.setState({
+                "things": loadedThings,
+                "hasMore": (page * items < totalThings)
+              });
+          } else {
+            this.setState({
+              "hasMore": false
+            });
           }
-          return res.status(200).json(result);
-        });
-        //var soft = req.params.soft;
-        // thingsCollection = thingsCollection.filter( (e, i) => {
-        //   return (e.id !== id );
-        // } ); //
-        // res.status(200).json({ 'msg': 'Elemento ' + id + ' fué eleminido!!!' });
-      });// put /
+        }
+      )
+      .catch(
+        (err)=>{
+          console.log(err);
+        }
+      );
+  }
+  render() {
+  const items = this.state.things.map(
+    (thing)=>{
+      return (
+        <div className="thingItem" key={thing._id}>
+          <span>{thing.Nombre}</span>
+          <div>
+          <span className = "deleteThing">
+          <Link to={`/detailDelete/${thing._id}`}>
+          <IoIosCloseCircleOutline size="2em"/>
+          </Link>
+          </span>
+          <span className="updateThing">
+          <Link to={`/detailupdate/${thing._id}`}>
+              <IoIosInformationCircleOutline size="2em"/>
+            </Link>
+          </span>
+          </div>
+        </div>);
+    }
+  );
 
-    return router;
+  if(!items.length) items.push(
+    <div className="thingItem" key="pbBackLogAddOne">
+      <span>Nuevo Combo</span>
+      <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
+    </div>);
+
+  return (
+    <section>
+      <h1><MdRestaurant/>
+        Combos 
+        <span className="addThing">
+          <Link to="/detailadd">
+            <IoMdAddCircle size="1.5em" />
+          </Link>
+        </span>
+      </h1>
+      <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMore}
+            hasMore={this.state.hasMore}
+            useWindow={false}
+            getScrollParent={()=>this.scrollParentRef}
+            loader={<div key="pbBackLogLoading" className="thingItem center"><IoIosSync/></div>}
+            >
+              {items}
+          </InfiniteScroll>
+      </div>
+      
+     </section>
+   );
+  }
 }
