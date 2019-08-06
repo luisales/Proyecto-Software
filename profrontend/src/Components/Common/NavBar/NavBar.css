@@ -7,6 +7,9 @@ nav {
   box-sizing: border-box;
   background-color: #FF522D;
   color: #000;
+  margin-top: 75%;
+  margin-left: -120px;
+  margin-right: -150px;
 }
 @font-face {
   font-family: 'Luckiest Guy';
