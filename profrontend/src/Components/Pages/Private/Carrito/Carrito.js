@@ -84,4 +84,3 @@ function ProductsInit(db) {
 
     return router;
 }
-module.exports = ProductsInit;
