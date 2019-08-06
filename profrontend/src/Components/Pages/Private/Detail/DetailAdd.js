@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Button from '../../../Common/Btns/Buttons';
 import Campo from '../../../Common/Campo/Campo';
 import { paxios } from '../../../../Utilities';
-
+import './detail.css';
 /*
   module.exports = class Login .....
 */
@@ -47,7 +47,7 @@ export default class DetailAdd extends Component {
   render() {
     return (
       <section>
-        <h1>Crear Nuevo Combo</h1>
+        <h1 className="titulo">Crear Nuevo Combo</h1>
         <section className="main fix640">
         <Campo
             caption="Nombre"

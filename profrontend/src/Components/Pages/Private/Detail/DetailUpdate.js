@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '../../../Common/Btns/Buttons';
 import Campo from '../../../Common/Campo/Campo';
 import { paxios } from '../../../../Utilities';
-
+import './detail.css';
 
 export default class DetailUpdate extends Component {
   constructor() {
@@ -57,7 +57,7 @@ export default class DetailUpdate extends Component {
     console.log(this.state);
     return (
       <section>
-        <h1>
+        <h1 className="titulo">
           Mantenimiento Combos
         </h1>
         <section className="main fix640">

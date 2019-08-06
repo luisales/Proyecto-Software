@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '../../../Common/Btns/Buttons';
 import Campo from '../../../Common/Campo/CampoDelete';
 import { paxios } from '../../../../Utilities';
-
+import './detail.css';
 
 export default class DetailDelete extends Component {
   constructor() {
@@ -56,7 +56,7 @@ export default class DetailDelete extends Component {
     console.log(this.state);
     return (
       <section>
-        <h1>
+        <h1 className="titulo">
           Eliminar Combos
         </h1>
         <section className="main fix640">
