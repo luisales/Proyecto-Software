@@ -22,10 +22,13 @@ function routerInit(db){
 
     const securityApi = require('./security')(db);
     const thingsApi = require('./things')(db);
+    const carritoApi = require('./carrito')(db);
+    const ordenesApi = require('./ordenes')(db);
   
     router.use('/security', securityApi);
     router.use('/things', passport.authenticate('jwt', {session:false}) , thingsApi);
-
+    router.use('/carrito', passport.authenticate('jwt', {session:false}) , carritoApi);
+    router.use('/ordenes', passport.authenticate('jwt', {session:false}) , ordenesApi);
     return router;
 }
 
