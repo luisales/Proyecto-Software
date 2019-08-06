@@ -37,8 +37,8 @@ export class Dashboard extends Component {
   }
   render() {
     return (
-      <div>
-      <div><h1>Localización</h1></div>
+      <div className="Mapa">
+      <div><h1>¿Dónde Estamos?</h1></div>
       <Map google={this.props.google} zoom={14}  initialCenter={{ lat: 14.0531769, lng: -87.2276354}}>
       {this.displayMarkers()}
       </Map>

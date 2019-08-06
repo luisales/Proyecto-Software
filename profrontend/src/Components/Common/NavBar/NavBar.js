@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 // https://react-icons.netlify.com/
-import { IoIosLogIn, IoIosHome, IoIosKey, IoIosToday, IoIosList } from 'react-icons/io';
+import { IoIosLogIn,IoIosBus,IoIosCart,IoIosPaperPlane, IoIosPaper,IoIosClipboard,IoIosHome, IoIosKey, IoIosToday, IoIosList } from 'react-icons/io';
 import './NavBar.css';
 
 const NavItem = ({ to, children, ...rest }) => {
@@ -15,30 +15,30 @@ export default ({auth, unSetAuth})=>{
   if(!auth.logged){
     return(
       <nav>
-        <NavItem to="/login"><IoIosLogIn/>&nbsp;Login</NavItem>
-        <NavItem to="/signin"><IoIosKey/>&nbsp;SignIn</NavItem>
+        <NavItem to="/login"><IoIosLogIn/>&nbsp;</NavItem>
+        <NavItem to="/signin"><IoIosKey/>&nbsp;</NavItem>
       </nav>
     )
   } else if(auth.user.permiso) {
     return (
       <nav>
-        <NavItem to="/"><IoIosHome/>&nbsp;Home</NavItem>
-        <NavItem to="/main"><IoIosToday />&nbsp;Localización</NavItem>
-        <NavItem to="/backlog"><IoIosList/>&nbsp;Ofertas</NavItem>
-        <NavItem to="/menu"><IoIosList/>&nbsp;Menu</NavItem>
-        <NavItem to="/carrito"><IoIosList/>&nbsp;Carrito</NavItem>
-        <NavItem to="/ordenes"><IoIosList/>&nbsp;Ordenes</NavItem>
+        <NavItem to="/"><IoIosHome/>&nbsp;</NavItem>
+        <NavItem to="/main"><IoIosBus />&nbsp;</NavItem>
+        <NavItem to="/backlog"><IoIosPaper/>&nbsp;</NavItem>
+        <NavItem to="/menu"><IoIosClipboard/>&nbsp;</NavItem>
+        <NavItem to="/carrito"><IoIosCart/>&nbsp;</NavItem>
+        <NavItem to="/ordenes"><IoIosPaperPlane/>&nbsp;</NavItem>
       </nav>
     )
   }
   else{
     return(
       <nav>
-        <NavItem to="/"><IoIosHome/>&nbsp;Home</NavItem>
-        <NavItem to="/main"><IoIosToday />&nbsp;Localización</NavItem>
-        <NavItem to="/menu"><IoIosList/>&nbsp;Menu</NavItem>
-        <NavItem to="/carrito"><IoIosList/>&nbsp;Carrito</NavItem>
-
+        <NavItem to="/"><IoIosHome/>&nbsp;</NavItem>
+        <NavItem to="/main"><IoIosBus />&nbsp;</NavItem>
+        <NavItem to="/menu"><IoIosClipboard/>&nbsp;</NavItem>
+        <NavItem to="/carrito"><IoIosCart/>&nbsp;</NavItem>
+        <NavItem to="/ordenes"><IoIosPaperPlane/>&nbsp;</NavItem>
       </nav>
     )
   }

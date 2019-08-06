@@ -63,15 +63,8 @@ function thingsInit(db){
             return res.status(401).json({"error":"Error al extraer documento"});
           }
           return res.status(200).json(doc);
-        }); //findOne
-      });// get ById
-      
-      // CRUD Crear, Leer (Read), Actualizar (Update) ,Eliminar (Delete)
-      // REST
-      // GET  consultas  Read, lectura
-      // POST Crear  - Insert C
-      // PUT  Update - Actualizar
-      // DELETE  Delete - ELiminar
+        }); 
+      });
       
       router.post('/', (req, res, next)=>{
         var {_id, email} = req.user;

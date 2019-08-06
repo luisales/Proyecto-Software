@@ -1,106 +1,111 @@
 import  React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosCloseCircleOutline, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import { IoIosCloseCircleOutline,  IoIosCheckmarkCircleOutline, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import {Link} from 'react-router-dom';
-import { MdRestaurant } from 'react-icons/md';
-
-
 import { paxios } from '../../../../Utilities';
 
 import "./Ordenes.css";
 
-export default class Ordenes extends Component {
-  constructor(){
-    super();
-    this.state={
-      things:[],
-      hasMore:true,
-      page:1,
-      itemsToLoad:10
-    }
+export default class Ordenes extends Component{
 
-    this.loadMore = this.loadMore.bind(this);
+
+  constructor() {
+    super();
+    this.state = {
+      things: [],
+      hasMore: true,
+      page: 1,
+      intervalIsSet: false,
+      itemsToLoad: 10
+    }
+    this.addNotification = this.addNotification.bind(this);
+    this.notificationDOMRef = React.createRef();
   }
 
-  loadMore(page){
-    const items  = this.state.itemsToLoad;
-    const uri = `/api/things/page/${page}/${items}`;
+  
+  addNotification() {
+    this.notificationDOMRef.current.addNotification({
+      title: "Notificacion",
+      message: "Pedido Aceptado!",
+      type: "success",
+      insert: "top",
+      container: "bottom-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
+
+  componentDidMount() {
+    this.getDataFromDb();
+    if (!this.state.intervalIsSet) {
+      let interval = setInterval(this.getDataFromDb, 2000);
+      this.setState({ intervalIsSet: interval });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
+  }
+  
+
+  getDataFromDb = () => {
+    const uri = `/api/ordenes`;
     paxios.get(uri)
       .then(
-        ({data})=>{
-          const { things, totalThings} = data;
-          const loadedThings = this.state.things;
-          things.map((e)=>loadedThings.push(e));
-          if(totalThings){
-              this.setState({
-                "things": loadedThings,
-                "hasMore": (page * items < totalThings)
-              });
-          } else {
-            this.setState({
-              "hasMore": false
-            });
-          }
-        }
-      )
-      .catch(
-        (err)=>{
-          console.log(err);
-        }
-      );
-  }
-  render() {
-  const items = this.state.things.map(
-    (thing)=>{
-      return (
-        <div className="thingItem" key={thing._id}>
-          <span>{thing.Nombre}</span>
-          <div>
-          <span className = "deleteThing">
-          <Link to={`/detailDelete/${thing._id}`}>
-          <IoIosCloseCircleOutline size="2em"/>
-          </Link>
-          </span>
-          <span className="updateThing">
-          <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
-          </span>
-          </div>
-        </div>);
-    }
-  );
+        ({ data }) => {
+          console.log(data);
+          this.setState(
+            {
+              things: data
+            }
+          )
+        })
+  };
+  logout(e){
+    localStorage.clear();
+    window.location.href = '/';
+}
 
-  if(!items.length) items.push(
-    <div className="thingItem" key="pbBackLogAddOne">
-      <span>Nuevo Combo</span>
-      <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
-    </div>);
+ 
+    render(){
+        const { things } = this.state;
+        return (
+          <section>
+            <h1>Ordenes
+         
+            </h1>
 
-  return (
-    <section>
-      <h1><MdRestaurant/>
-        Combos 
-        <span className="addThing">
-          <Link to="/detailadd">
-            <IoMdAddCircle size="1.5em" />
-          </Link>
-        </span>
-      </h1>
-      <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMore}
-            hasMore={this.state.hasMore}
-            useWindow={false}
-            getScrollParent={()=>this.scrollParentRef}
-            loader={<div key="pbBackLogLoading" className="thingItem center"><IoIosSync/></div>}
-            >
-              {items}
-          </InfiniteScroll>
-      </div>
-      
-     </section>
-   );
-  }
+            <section >
+          {things.length <= 0
+            ? 'No tiene ningun pedido'
+            : things.map((thing) => (
+              <div className="thingItem_man" key={thing._id}>
+               <div>
+                <div>
+              <span>Pedido: {thing._id}</span></div>
+              <div>
+              <span>Estado de la orden: {thing.estadoFactura}</span></div>
+              
+              <span className="updateThing">
+              
+              </span>
+              <span className="updateThing">
+                  <IoIosCheckmarkCircleOutline className="iconoadd2" size="2em"/>
+              </span>
+              <span className="updateThing">
+                  <IoIosCloseCircleOutline  className="iconoadd2"size="2em"/>
+              </span>
+              </div>
+                 
+            </div>
+            ))}
+          
+        </section>
+          </section>
+        );
+}
 }

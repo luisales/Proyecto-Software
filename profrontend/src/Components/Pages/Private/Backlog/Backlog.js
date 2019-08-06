@@ -53,8 +53,10 @@ export default class Backlog extends Component {
   const items = this.state.things.map(
     (thing)=>{
       return (
-        <div className="thingItem" key={thing._id}>
+        <div className="thingBack" key={thing._id}>
           <span>{thing.nombreProducto}</span>
+          <span>L. {thing.Precio}</span>
+          <span>{thing.descripcion}</span>
           <div>
           <span className = "deleteThing">
           <Link to={`/detailDelete/${thing._id}`}>
@@ -79,6 +81,7 @@ export default class Backlog extends Component {
 
   return (
     <section>
+      
       <h1><MdRestaurant/>
         Combos 
         <span className="addThing">

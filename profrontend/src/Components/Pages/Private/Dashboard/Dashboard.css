@@ -28,7 +28,21 @@
   padding:1rem 0.25rem;
   font-weight: bold;
 }
-
+.Mapa h1{
+  font-family: 'Luckiest Guy';
+  font-weight:normal;
+  font-style:normal;
+  box-sizing: border-box;
+  display:flex;
+  top: 0;
+  align-items: center;
+  text-align:center !important;
+  justify-content:center;
+  align-self: center;
+  width: 100%;
+  margin-top: 0;
+  position: static;
+}
 .circle {
   display: flex;
   justify-content: center;

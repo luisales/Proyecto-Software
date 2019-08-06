@@ -12,6 +12,48 @@
   src: local('Luckiest Guy Regular'), local('LuckiestGuy-Regular'), url(https://fonts.gstatic.com/s/luckiestguy/v10/_gP_1RrxsjcxVyin9l9n_j2hTd52.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+.thingMenu button {
+  margin-top: 15px;
+	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.thingMenu button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+	background-color:#c62d1f;
+}
+.thingMenu button:active {
+	position:relative;
+	top:1px;
+}
+
 .menu{
   
   margin-left: auto;
@@ -20,16 +62,21 @@
 outline-offset: 0px;
 }
 
-.thingItem {
+.thingMenu {
   font-size: 70%;
   display: flex;
   box-sizing: 1px;
+  flex-direction: row;
+  flex-wrap: wrap;
   padding: 1rem;
   border-bottom:  6px groove #FF522D;
-  min-height: 3rem;
+
   align-items: center;
-  justify-content: space-between;
-  
+  justify-content: center;
+  min-height: 300px;
+  margin-left: 5px;
+ 
+
 }
 section{
   font-family: 'Luckiest Guy';
@@ -37,21 +84,21 @@ section{
   font-style:normal;
 }
 .backlog img{
-  width:50%;
-  height:50%;
- 
+  width: 320px;
+  height: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   outline: 6px groove #FF522D;
 outline-offset: 0px;
 }
-.thingItem span:first-child {
+.thingMenu span:first-child {
   padding-right: 1.5rem;
   
 }
 .menu img{
-  width: 150px;
+  width: 320px;
+  height: 220px;
 } 
 .center {
   justify-content: center;
@@ -63,8 +110,19 @@ outline-offset: 0px;
   color: #3e549c;
 }
 
-.titulo{
-  text-align: center;
-  margin-bottom: 1rem;
+.titulo h1{
+  font-family: 'Luckiest Guy';
+  font-weight:normal;
+  font-style:normal;
+  box-sizing: border-box;
+  display:flex;
+  top: 0;
+  align-items: center;
+  text-align:center !important;
+  justify-content:center;
+  align-self: center;
+  width: 100%;
+  margin-top: 0;
+  position: static;
 }
 

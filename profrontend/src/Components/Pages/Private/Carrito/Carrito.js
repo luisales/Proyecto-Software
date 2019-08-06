@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {Link} from 'react-router-dom';
-import { IoIosAdd,IoIosCart, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import { IoIosAdd,IoIosCart,IoIosCash, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import { paxios } from '../../../../Utilities';
 import {MdDelete } from "react-icons/md";
 import './Carrito.css'
@@ -87,19 +87,16 @@ export default class Carrito extends Component{
   render(){
     const { things } = this.state;
       return (
-        <section>
+        <section  className="Ordenar">
           <h1>Ordenes
           
-          <Link className="linke" to="detailcar">
+          
          
-            <button className="buttonpagar" onClick={this.pedido}>Ordenar</button>
-          </Link>
+            <button  onClick={this.pedido}><IoIosCash size="2em"/></button>
+          
           </h1>
           <section>
-          <div>
-          <div> <span>Sub L. {this.state.subtotal}</span></div>
-          <div><span>ISV L. {this.state.ISV}</span></div>
-          <div> <span>Total L. {this.state.total}</span></div></div>
+         
           {things.length <= 0
           ? 'Seleccione un producto para realizar su compra'
           : things.map((thing) => (
@@ -113,7 +110,19 @@ export default class Carrito extends Component{
                 
               </div>
                   
+                  
             ))}
+            {things.length <= 0
+          ?  <div>
+          <div> <span>Sub L. 0</span></div>
+          <div><span>ISV L. 0</span></div>
+          <div> <span>Total L. 0</span></div></div>
+          :
+             <div>
+          <div> <span>Sub L. {this.state.subtotal}</span></div>
+          <div><span>ISV L. {this.state.ISV}</span></div>
+          <div> <span>Total L. {this.state.total}</span></div></div>
+            }
           </section>
 
         </section>

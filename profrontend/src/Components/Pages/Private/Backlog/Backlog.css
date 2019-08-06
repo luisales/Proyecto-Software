@@ -3,18 +3,22 @@
   padding: 0px;
   overflow: auto;
   margin-top: -1rem;
+
 }
-.thingItem {
+.thingBack {
   font-size: 100%;
   display: flex;
   box-sizing: 1px;
   padding: 1rem;
-  border-bottom: 1px solid #000;
+  border-bottom:10px ridge #ce542e;
   min-height: 3rem;
   align-items: center;
   justify-content: space-between;
 }
-.thingItem span:first-child {
+.thingBack span{
+  min-width: 25%  ;
+}
+.thingBack span:first-child {
   padding-right: 1.5rem;
 }
 .center {
@@ -22,6 +26,32 @@
 }
 .addThing a {
   color: rgb(255, 255, 255);
+}
+.deleteThing a:hover {
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+	background-color:#c62d1f;
+} a 
+.deleteThing a:active {
+	position:relative;
+	top:1px;
+}
+.updateThing a:hover {
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+	background-color:#c62d1f;
+}
+.updateThing a:active {
+	position:relative;
+	top:1px;
 }
 .updateThing a {
   float: right;
