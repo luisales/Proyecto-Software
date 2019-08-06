@@ -83,23 +83,13 @@ export default class Ordenes extends Component{
           {things.length <= 0
             ? 'No tiene ningun pedido'
             : things.map((thing) => (
-              <div className="thingItem_man" key={thing._id}>
-               <div>
+              <div className="Contenedor" key={thing._id}>
+               
                 <div>
               <span>Pedido: {thing._id}</span></div>
               <div>
               <span>Estado de la orden: {thing.estadoFactura}</span></div>
               
-              <span className="updateThing">
-              
-              </span>
-              <span className="updateThing">
-                  <IoIosCheckmarkCircleOutline className="iconoadd2" size="2em"/>
-              </span>
-              <span className="updateThing">
-                  <IoIosCloseCircleOutline  className="iconoadd2"size="2em"/>
-              </span>
-              </div>
                  
             </div>
             ))}

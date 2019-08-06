@@ -51,6 +51,7 @@ function OrdenesInit(db) {
             }
             return res.status(200).json({ "n": result.insertedCount, "obj": result.ops[0] });
         });
+        
     });
 
 

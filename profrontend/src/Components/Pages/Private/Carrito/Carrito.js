@@ -11,6 +11,7 @@ export default class Carrito extends Component{
     super();
     this.state={
       things:[],
+      facts: [],
       hasMore:true,
       page:1,
       intervalIsSet: false,
@@ -30,6 +31,8 @@ export default class Carrito extends Component{
       this.setState({ intervalIsSet: null });
     }
   }
+ 
+  
   getDataFromDb = () => {
     const uri = `/api/carrito`;
     paxios.get(uri)
@@ -50,7 +53,7 @@ export default class Carrito extends Component{
         Isv=parseFloat(Subtotal*0.15).toFixed(2); 
         Total=(parseFloat(Subtotal) + parseFloat(Isv)).toFixed(2);
         this.setState({
-        subtotal:Subtotal,
+        subtotal:Subtotal.toFixed(2),
         ISV:Isv,
         total:Total
         })
@@ -60,6 +63,7 @@ export default class Carrito extends Component{
 
       })
   };
+  
 
   ordenes=()=>{
     paxios.post(`/api/ordenes`)
@@ -86,21 +90,21 @@ export default class Carrito extends Component{
 
   render(){
     const { things } = this.state;
+   
       return (
         <section  className="Ordenar">
-          <h1>Ordenes
-          
-          
+          <div>
+         <h1>Ordenes </h1>
          
-            <button  onClick={this.pedido}><IoIosCash size="2em"/></button>
-          
-          </h1>
+          </div>
+       
+        
           <section>
          
           {things.length <= 0
-          ? 'Seleccione un producto para realizar su compra'
+          ? 'Carrito Vacio'
           : things.map((thing) => (
-              <div className="thingItem" key={thing._id}>
+              <div className="thingStiff" key={thing._id}>
                 <span> {thing.total}</span>
                 <span> {thing.nombreProducto}</span>
                 <span> L. {thing.Precio}</span>
@@ -113,16 +117,23 @@ export default class Carrito extends Component{
                   
             ))}
             {things.length <= 0
-          ?  <div>
+          ?  <div className="Detalles">
           <div> <span>Sub L. 0</span></div>
           <div><span>ISV L. 0</span></div>
           <div> <span>Total L. 0</span></div></div>
           :
-             <div>
+             <div className="Detalles">
           <div> <span>Sub L. {this.state.subtotal}</span></div>
           <div><span>ISV L. {this.state.ISV}</span></div>
           <div> <span>Total L. {this.state.total}</span></div></div>
             }
+             {things.length <= 0
+          ?''
+        :<div className="ButtonPay">
+
+          <button  onClick={this.ordenes}><IoIosCash size="2em"/></button>
+            </div>
+          }
           </section>
 
         </section>

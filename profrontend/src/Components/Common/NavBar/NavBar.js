@@ -39,6 +39,7 @@ export default ({auth, unSetAuth})=>{
         <NavItem to="/menu"><IoIosClipboard/>&nbsp;</NavItem>
         <NavItem to="/carrito"><IoIosCart/>&nbsp;</NavItem>
         <NavItem to="/ordenes"><IoIosPaperPlane/>&nbsp;</NavItem>
+       
       </nav>
     )
   }
