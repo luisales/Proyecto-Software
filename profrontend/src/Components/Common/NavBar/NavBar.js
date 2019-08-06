@@ -19,15 +19,26 @@ export default ({auth, unSetAuth})=>{
         <NavItem to="/signin"><IoIosKey/>&nbsp;SignIn</NavItem>
       </nav>
     )
-  } else {
+  } else if(auth.user.permiso) {
     return (
       <nav>
         <NavItem to="/"><IoIosHome/>&nbsp;Home</NavItem>
         <NavItem to="/main"><IoIosToday />&nbsp;Localización</NavItem>
         <NavItem to="/backlog"><IoIosList/>&nbsp;Ofertas</NavItem>
         <NavItem to="/menu"><IoIosList/>&nbsp;Menu</NavItem>
-        <NavItem to="/carrito"><IoIosList/>&nbsp;Carrito</NavItem>
+        
         <NavItem to="/ordenes"><IoIosList/>&nbsp;Ordenes</NavItem>
+      </nav>
+    )
+  }
+  else{
+    return(
+      <nav>
+        <NavItem to="/"><IoIosHome/>&nbsp;Home</NavItem>
+        <NavItem to="/main"><IoIosToday />&nbsp;Localización</NavItem>
+        <NavItem to="/menu"><IoIosList/>&nbsp;Menu</NavItem>
+        <NavItem to="/carrito"><IoIosList/>&nbsp;Carrito</NavItem>
+
       </nav>
     )
   }

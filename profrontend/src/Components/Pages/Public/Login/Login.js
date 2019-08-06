@@ -16,6 +16,7 @@ export default class Login extends Component{
     //definición del estado inicial
     this.state = {
       email:'',
+      source:[],
       password:'',
       redirect:false,
       error:null
@@ -35,7 +36,7 @@ export default class Login extends Component{
     naxios.post('/api/security/login', this.state)
       .then( ( {data , status})=>{
         this.props.setAuth(data.token, data.user);
-        this.setState({redirect:true});
+        this.setState({redirect:true, source:data.user});
         }
       )
       .catch( (err)=> {
@@ -48,6 +49,9 @@ export default class Login extends Component{
 
   render(){
     console.log(this.props);
+
+    if(this.state.source.user)
+    {
     if(this.state.redirect){
       return (
         <Redirect
@@ -55,6 +59,17 @@ export default class Login extends Component{
         />
       );
     }
+  }
+  else{
+    if(this.state.redirect){
+      return (
+        <Redirect
+          to={(this.props.location.state) ? this.props.location.state.from.pathname : '/menu'}
+        />
+      );
+    }
+  }
+  
     return (
       <section >
         <h1 className="titulo">Iniciar Sesión</h1>

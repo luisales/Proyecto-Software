@@ -25,13 +25,14 @@ module.exports = function(db){
         });
     }
 
-    userModel.agregarNuevo = (email, password, handler) =>{
+    userModel.agregarNuevo = (email, password, permiso, handler) =>{
         var newUser = Object.assign({},{
             email:email,
             password: genPassword(password),
             dateCreated: new Date().getTime(),
             active: true,
             lastPasswords:[],
+            permiso: permiso,
             roles:["public"]
         });
         userColl.insertOne(newUser,(err, result)=>{
