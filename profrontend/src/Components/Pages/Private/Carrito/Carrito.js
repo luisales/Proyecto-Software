@@ -41,10 +41,27 @@ export default class Carrito extends Component{
             things:data
           }
         )
+        const {things} =this.state;
+        var Subtotal=0,Variable=0,Isv=0,Total=0; 
+        things.map((thing)=>{
+        Total=
+        Variable=parseInt(thing.Precio)*parseInt(thing.total);
+        Subtotal+=Variable;
+        Isv=parseFloat(Subtotal*0.15).toFixed(2); 
+        Total=(parseFloat(Subtotal) + parseFloat(Isv)).toFixed(2);
+        this.setState({
+        subtotal:Subtotal,
+        ISV:Isv,
+        total:Total
+        })
+
+
+      })
+
       })
   };
 
-  pedido=()=>{
+  ordenes=()=>{
     paxios.post(`/api/ordenes`)
     .then(({ data }) => {
       console.log("Enviado");
@@ -72,11 +89,17 @@ export default class Carrito extends Component{
       return (
         <section>
           <h1>Ordenes
+          
           <Link className="linke" to="detailcar">
-            <button className="buttonpagar" onClick={this.pedido}>Hacer pedido</button>
+         
+            <button className="buttonpagar" onClick={this.pedido}>Ordenar</button>
           </Link>
           </h1>
-          <section className="overr">
+          <section>
+          <div>
+          <div> <span>Sub L. {this.state.subtotal}</span></div>
+          <div><span>ISV L. {this.state.ISV}</span></div>
+          <div> <span>Total L. {this.state.total}</span></div></div>
           {things.length <= 0
           ? 'Seleccione un producto para realizar su compra'
           : things.map((thing) => (
@@ -84,10 +107,12 @@ export default class Carrito extends Component{
                 <span> {thing.total}</span>
                 <span> {thing.nombreProducto}</span>
                 <span> L. {thing.Precio}</span>
+            
               
                 <MdDelete onClick={this.delete.bind(this,thing.codigoProducto)} size="2em"/>
                 
               </div>
+                  
             ))}
           </section>
 

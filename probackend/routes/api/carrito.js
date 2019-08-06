@@ -42,9 +42,9 @@ function CarritoInit(db) {
                 "nombreProducto":req.body.nombreProducto,
                 "Precio": req.body.Precio,
                 "idPersona": new ObjectID(_id)
-             
                 
-               
+                    
+                
             }
 
         );
