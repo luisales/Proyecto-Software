@@ -8,7 +8,7 @@ function thingsInit(db){
 
     var thingsStruct = {
         
-        "Nombre":'',
+        "nombreProducto":'',
         "Precio":'',
         "descripcion": '',
         "img": '',

@@ -1,6 +1,6 @@
 import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import {IoIosAdd, IoIosCart, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { MdRestaurant } from 'react-icons/md';
 
@@ -49,20 +49,32 @@ export default class Menu extends Component {
         }
       );
   }
+  Registrar = (codigoProducto, nombreProducto, Precio) => {
+    paxios.post('/api/carrito', { codigoProducto,nombreProducto,Precio})
+      .then(({ data }) => {
+        console.log("Agregar");
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ error: "Error al crear " });
+      })
+  }
+
   render() {
   const items = this.state.things.map(
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
          <div > 
-           <h1 >{thing.Nombre}</h1>
+           <h1 >{thing.nombreProducto}</h1>
            
-           
+        
            <h2>{thing.descripcion}</h2>
            
            <h2>L. {thing.Precio}</h2>
            <span><img src={thing.img}/></span>
          
+           <button onClick={this.Registrar.bind(this, thing._id, thing.nombreProducto, thing.Precio,thing.by)} ><IoIosCart size="2em"/></button>
           <span className="updateThing">
 
           </span>

@@ -10,7 +10,7 @@ export default class DetailUpdate extends Component {
     //definición del estado inicial
     this.state = {
      
-      Nombre:'',
+      nombreProducto:'',
         Precio:'',
       descripcion:'',
       img: '',
@@ -42,8 +42,8 @@ export default class DetailUpdate extends Component {
     this.setState({ ...this.state, [name]: value });
   }
   onSaveBtnClick(e) {
-    const { Nombre, Precio, descripcion, img, _id } = this.state;
-    paxios.put(`/api/things/${_id}`, {  Nombre, Precio, descripcion, img })
+    const { nombreProducto, Precio, descripcion, img, _id } = this.state;
+    paxios.put(`/api/things/${_id}`, {  nombreProducto, Precio, descripcion, img })
       .then(({ data }) => {
         this.props.history.push("/backlog");
       })
@@ -64,16 +64,16 @@ export default class DetailUpdate extends Component {
         
         <Campo
             caption="Nombre"
-            value={this.state.Nombre}
+            value={this.state.nombreProducto}
             name="Nombre"
             onChange={this.onChangeHandler}
           />
           
           <br></br>
         <Campo
-            caption="Precio"
+            caption="nombreProducto"
             value={this.state.Precio}
-            name="Precio"
+            name="nombreProducto"
             onChange={this.onChangeHandler}
           />
 

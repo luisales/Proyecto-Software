@@ -54,7 +54,7 @@ export default class Backlog extends Component {
     (thing)=>{
       return (
         <div className="thingItem" key={thing._id}>
-          <span>{thing.Nombre}</span>
+          <span>{thing.nombreProducto}</span>
           <div>
           <span className = "deleteThing">
           <Link to={`/detailDelete/${thing._id}`}>

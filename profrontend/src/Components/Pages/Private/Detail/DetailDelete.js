@@ -9,7 +9,7 @@ export default class DetailDelete extends Component {
     super();
     //definición del estado inicial
     this.state = {
-      Nombre:'',
+      nombreProducto:'',
         Precio:'',
       descripcion:'',
       img: '',
@@ -41,8 +41,8 @@ export default class DetailDelete extends Component {
     this.setState({ ...this.state, [name]: value });
   }
   onSaveBtnClick(e) {
-    const {  Nombre, Precio, descripcion, img, _id } = this.state;
-    paxios.delete(`/api/things/${_id}`, {  Nombre, Precio, descripcion, img})
+    const {  nombreProducto, Precio, descripcion, img, _id } = this.state;
+    paxios.delete(`/api/things/${_id}`, {  nombreProducto, Precio, descripcion, img})
       .then(({ data }) => {
         this.props.history.push("/backlog");
       })
@@ -62,9 +62,9 @@ export default class DetailDelete extends Component {
         <section className="main fix640">
         
         <Campo
-            caption="Nombre"
-            value={this.state.Nombre}
-            name="Nombre"
+            caption="nombreProducto"
+            value={this.state.nombreProducto}
+            name="nombreProducto"
             onChange={this.onChangeHandler}
                        
           />

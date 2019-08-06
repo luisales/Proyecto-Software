@@ -1,106 +1,97 @@
-import  React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { IoIosCloseCircleOutline, IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle } from 'react-icons/io';
+import React, { Component } from 'react';
+
 import {Link} from 'react-router-dom';
-import { MdRestaurant } from 'react-icons/md';
-
-
+import { IoIosAdd,IoIosCart, IoIosSync, IoMdAddCircle } from 'react-icons/io';
 import { paxios } from '../../../../Utilities';
+import {MdDelete } from "react-icons/md";
+import './Carrito.css'
+export default class Carrito extends Component{
 
-import "./Carrito.css";
-
-export default class Carrito extends Component {
   constructor(){
     super();
     this.state={
       things:[],
       hasMore:true,
       page:1,
+      intervalIsSet: false,
       itemsToLoad:10
+    }}
+  componentDidMount() {
+    this.getDataFromDb();
+    if (!this.state.intervalIsSet) {
+      let interval = setInterval(this.getDataFromDb, 1000);
+      this.setState({ intervalIsSet: interval });
     }
-
-    this.loadMore = this.loadMore.bind(this);
   }
 
-  loadMore(page){
-    const items  = this.state.itemsToLoad;
-    const uri = `/api/things/page/${page}/${items}`;
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
+  }
+  getDataFromDb = () => {
+    const uri = `/api/carrito`;
     paxios.get(uri)
-      .then(
-        ({data})=>{
-          const { things, totalThings} = data;
-          const loadedThings = this.state.things;
-          things.map((e)=>loadedThings.push(e));
-          if(totalThings){
-              this.setState({
-                "things": loadedThings,
-                "hasMore": (page * items < totalThings)
-              });
-          } else {
-            this.setState({
-              "hasMore": false
-            });
+    .then(
+      ({data})=>{
+        console.log(data);
+        this.setState(
+          {
+            things:data
           }
-        }
-      )
-      .catch(
-        (err)=>{
-          console.log(err);
-        }
-      );
+        )
+      })
+  };
+
+  pedido=()=>{
+    paxios.post(`/api/ordenes`)
+    .then(({ data }) => {
+      console.log("Enviado");
+    })
+    .catch((error) => {
+      console.log(error);
+      this.setState({ error: "Error al crear " });
+    })
   }
-  render() {
-  const items = this.state.things.map(
-    (thing)=>{
+
+  delete=(codigoProducto)=>{
+    console.log(codigoProducto);
+    paxios.delete(`/api/carrito/${codigoProducto}`)
+    .then(({ data }) => {
+      console.log("eliminado");
+    })
+    .catch((error) => {
+      console.log(error);
+      this.setState({ error: "Error al crear " });
+    })
+  }
+
+  render(){
+    const { things } = this.state;
       return (
-        <div className="thingItem" key={thing._id}>
-          <span>{thing.Nombre}</span>
-          <div>
-          <span className = "deleteThing">
-          <Link to={`/detailDelete/${thing._id}`}>
-          <IoIosCloseCircleOutline size="2em"/>
+        <section>
+          <h1>Ordenes
+          <Link className="linke" to="detailcar">
+            <button className="buttonpagar" onClick={this.pedido}>Hacer pedido</button>
           </Link>
-          </span>
-          <span className="updateThing">
-          <Link to={`/detailupdate/${thing._id}`}>
-              <IoIosInformationCircleOutline size="2em"/>
-            </Link>
-          </span>
-          </div>
-        </div>);
-    }
-  );
+          </h1>
+          <section className="overr">
+          {things.length <= 0
+          ? 'Seleccione un producto para realizar su compra'
+          : things.map((thing) => (
+              <div className="thingItem" key={thing._id}>
+                <span> {thing.total}</span>
+                <span> {thing.nombreProducto}</span>
+                <span> L. {thing.Precio}</span>
+              
+                <MdDelete onClick={this.delete.bind(this,thing.codigoProducto)} size="2em"/>
+                
+              </div>
+            ))}
+          </section>
 
-  if(!items.length) items.push(
-    <div className="thingItem" key="pbBackLogAddOne">
-      <span>Nuevo Combo</span>
-      <Link to="/detailadd"><IoMdAddCircle size="2.5em" /></Link>
-    </div>);
-
-  return (
-    <section>
-      <h1><MdRestaurant/>
-        Combos 
-        <span className="addThing">
-          <Link to="/detailadd">
-            <IoMdAddCircle size="1.5em" />
-          </Link>
-        </span>
-      </h1>
-      <div className="backlog" ref={(ref)=> this.scrollParentRef = ref}>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMore}
-            hasMore={this.state.hasMore}
-            useWindow={false}
-            getScrollParent={()=>this.scrollParentRef}
-            loader={<div key="pbBackLogLoading" className="thingItem center"><IoIosSync/></div>}
-            >
-              {items}
-          </InfiniteScroll>
-      </div>
-      
-     </section>
-   );
-  }
+        </section>
+      );
+}
 }
