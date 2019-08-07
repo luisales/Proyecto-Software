@@ -78,7 +78,7 @@ function initSecurity (db){
           var permiso = true;
         }
         else{
-          var permiso = true;
+          var permiso = false;
         }
 
     if( email ==='na' || pswd == 'na') {

@@ -9,12 +9,7 @@ import ThingBox from './ThingBox';
 import DatePanel from './DatePanel';
 
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-function getDDDate(ddDate){
-  const year = ddDate.getFullYear(), month = ddDate.getMonth() + 1, date = ddDate.getDate();
-  let dmonth = (month < 10) ? '0' + String(month) : String(month);
-  let dDay = (date < 10) ? '0' + String(date) : String(date);
-  return `${year}${dmonth}${dDay}`;
-}
+
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -50,6 +45,3 @@ export class Dashboard extends Component {
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyCWdgUnSVJutaBRgr4MXiaQQlL_0DGK3-4'
 })(Dashboard)
-//{bigThing}
-//{items}
-//{smallThingArr}

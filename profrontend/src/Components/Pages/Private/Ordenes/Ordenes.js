@@ -17,25 +17,10 @@ export default class Ordenes extends Component{
       intervalIsSet: false,
       itemsToLoad: 10
     }
-    this.addNotification = this.addNotification.bind(this);
-    this.notificationDOMRef = React.createRef();
+   
   }
 
   
-  addNotification() {
-    this.notificationDOMRef.current.addNotification({
-      title: "Notificacion",
-      message: "Pedido Aceptado!",
-      type: "success",
-      insert: "top",
-      container: "bottom-right",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: { duration: 2000 },
-      dismissable: { click: true }
-    });
-  }
-
   componentDidMount() {
     this.getDataFromDb();
     if (!this.state.intervalIsSet) {
@@ -81,7 +66,7 @@ export default class Ordenes extends Component{
 
             <section >
           {things.length <= 0
-            ? 'No tiene ningun pedido'
+            ? ''
             : things.map((thing) => (
               <div className="Contenedor" key={thing._id}>
                

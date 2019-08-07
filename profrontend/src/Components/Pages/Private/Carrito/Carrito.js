@@ -68,7 +68,7 @@ export default class Carrito extends Component{
   ordenes=()=>{
     paxios.post(`/api/ordenes`)
     .then(({ data }) => {
-      console.log("Enviado");
+     
     })
     .catch((error) => {
       console.log(error);
@@ -102,7 +102,7 @@ export default class Carrito extends Component{
           <section>
          
           {things.length <= 0
-          ? 'Carrito Vacio'
+          ? ''
           : things.map((thing) => (
               <div className="thingStiff" key={thing._id}>
                 <span> {thing.total}</span>
